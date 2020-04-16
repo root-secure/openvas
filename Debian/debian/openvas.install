@@ -1,0 +1,6 @@
+usr/bin/* usr/bin/
+usr/etc/* usr/etc/
+usr/lib/* usr/lib/
+usr/sbin/* usr/sbin/
+usr/share/* usr/share/
+usr/var/* usr/var/
