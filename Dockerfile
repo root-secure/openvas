@@ -1,9 +1,10 @@
-FROM debian:latest
+FROM ubuntu:latest
 ENV LIB_INSTALL_PREFIX ${LIB_INSTALL_PREFIX:-/usr}
 ENV DEB_BUILD_DIR ${DEB_BUILD_DIR:-/tmp/openvas}
 RUN apt-get update && apt-get install -q -y --fix-missing \
   tar \
   devscripts \
+  debhelper \
   cmake \
   gcc \
   pkg-config \
