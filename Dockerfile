@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 ENV LIB_INSTALL_PREFIX ${LIB_INSTALL_PREFIX:-/usr}
-ENV DEB_BUILD_DIR ${DEB_BUILD_DIR:-/tmp/openvas}
+ENV OPENVAS_DEB_BUILD_DIR ${OPENVAS_DEB_BUILD_DIR:-/tmp/openvas}
+ENV OPENVAS_SCANNER_DEB_BUILD_DIR ${OPENVAS_SCANNER_DEB_BUILD_DIR:-/tmp/openvas-scanner}
 RUN apt-get update && apt-get install -q -y --fix-missing \
   tar \
   devscripts \
@@ -35,32 +36,36 @@ RUN set -x && \
   cmake -DCMAKE_INSTALL_PREFIX=${LIB_INSTALL_PREFIX} .. && make && make install
 RUN set -x && \
   # create directories
-  mkdir -p ${DEB_BUILD_DIR}/openvas-6.0.1/usr \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/bin \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/etc/openvas \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/lib \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/sbin \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/doc/openvas-scanner/redis_config_examples \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man1 \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man8 \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/openvas \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/var/lib/openvas/gnupg \
-  ${DEB_BUILD_DIR}/openvas-6.0.1/usr/log/gvm && \
+  mkdir -p ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/bin \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/etc/openvas \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/lib \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/sbin \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/doc/openvas-scanner/redis_config_examples \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man1 \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man8 \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/openvas \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/var/lib/openvas/gnupg \
+  ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/log/gvm && \
   # copy files
-  cp /usr/bin/openvas-* ${DEB_BUILD_DIR}/openvas-6.0.1/usr/bin/ && \
-  cp -r /usr/etc/openvas/* ${DEB_BUILD_DIR}/openvas-6.0.1/usr/etc/openvas/ && \
-  cp /usr/lib/libopenvas*.so.10.0.1 ${DEB_BUILD_DIR}/openvas-6.0.1/usr/lib/ && \
-  cp /usr/sbin/greenbone-nvt-sync ${DEB_BUILD_DIR}/openvas-6.0.1/usr/sbin/ && \
-  cp /usr/sbin/openvassd ${DEB_BUILD_DIR}/openvas-6.0.1/usr/sbin/ && \
-  cp /usr/share/doc/openvas-scanner/redis_config_examples/redis*.conf ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/doc/openvas-scanner/redis_config_examples/ && \
-  cp /usr/share/man/man1/openvas-*.1 ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man1/ && \
-  cp /usr/share/man/man8/greenbone-nvt-sync.8 ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man8/ && \
-  cp /usr/share/man/man8/openvassd.8 ${DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man8/ && \
+  cp /usr/bin/openvas-* ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/bin/ && \
+  cp -r /usr/etc/openvas/* ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/etc/openvas/ && \
+  cp /usr/lib/libopenvas*.so.10.0.1 ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/lib/ && \
+  cp /usr/sbin/greenbone-nvt-sync ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/sbin/ && \
+  cp /usr/sbin/openvassd ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/sbin/ && \
+  cp /usr/share/doc/openvas-scanner/redis_config_examples/redis*.conf ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/doc/openvas-scanner/redis_config_examples/ && \
+  cp /usr/share/man/man1/openvas-*.1 ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man1/ && \
+  cp /usr/share/man/man8/greenbone-nvt-sync.8 ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man8/ && \
+  cp /usr/share/man/man8/openvassd.8 ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1/usr/share/man/man8/ && \
   # create original archive
-  cd ${DEB_BUILD_DIR} && \
+  cd ${OPENVAS_DEB_BUILD_DIR} && \
   tar -czvf openvas_6.0.1.orig.tar.gz openvas-6.0.1
-COPY Debian ${DEB_BUILD_DIR}/openvas-6.0.1
+COPY Debian/openvas ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1
 RUN set -x && \
-  cd ${DEB_BUILD_DIR}/openvas-6.0.1 && \
+  cd ${OPENVAS_DEB_BUILD_DIR}/openvas-6.0.1 && \
+  debuild -us -uc
+COPY Debian/openvas-scanner ${OPENVAS_SCANNER_DEB_BUILD_DIR}/openvas-scanner
+RUN set -x && \
+  cd ${OPENVAS_SCANNER_DEB_BUILD_DIR}/openvas-scanner && \
   debuild -us -uc
