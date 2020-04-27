@@ -9,7 +9,8 @@ Package: openvas
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         gvm-libs
+         redis,
+         gvm-libs,
 Description: OpenVAS Scanner
  This is the Open Vulnerability Assessment System (OpenVAS) Scanner of the
  Greenbone Vulnerability Management (GVM) Solution.
