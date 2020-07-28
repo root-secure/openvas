@@ -1,7 +1,8 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 ENV LIB_INSTALL_PREFIX ${LIB_INSTALL_PREFIX:-/usr}
 ENV OPENVAS_DEB_BUILD_DIR ${OPENVAS_DEB_BUILD_DIR:-/tmp/openvas}
 ENV OPENVAS_SCANNER_DEB_BUILD_DIR ${OPENVAS_SCANNER_DEB_BUILD_DIR:-/tmp/openvas-scanner}
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -q -y --fix-missing \
   tar \
   devscripts \
