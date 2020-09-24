@@ -28,6 +28,7 @@ mkdir -p %{buildroot}/opt/awn/share
 mkdir -p %{buildroot}/opt/awn/share/aclocal
 mkdir -p %{buildroot}/opt/awn/share/info
 mkdir -p %{buildroot}/opt/awn/share/man/man1
+mkdir -p %{buildroot}/etc/ld.so.conf.d
 cp /bin/dumpsexp %{buildroot}/opt/awn/bin/
 cp /bin/hmac256 %{buildroot}/opt/awn/bin/
 cp /bin/libgcrypt-config %{buildroot}/opt/awn/bin/
@@ -44,6 +45,7 @@ cp /share/info/gcrypt.info %{buildroot}/opt/awn/share/info/
 cp /share/info/gcrypt.info-1 %{buildroot}/opt/awn/share/info/
 cp /share/info/gcrypt.info-2 %{buildroot}/opt/awn/share/info/
 cp /share/man/man1/hmac256.1 %{buildroot}/opt/awn/share/man/man1/
+mv /ld.so.conf.libgcrypt %{buildroot}/etc/ld.so.conf.d/libgcrypt.conf
 
 %files
 /opt/awn/bin/dumpsexp
@@ -62,6 +64,7 @@ cp /share/man/man1/hmac256.1 %{buildroot}/opt/awn/share/man/man1/
 /opt/awn/share/info/gcrypt.info-1
 /opt/awn/share/info/gcrypt.info-2
 /opt/awn/share/man/man1/hmac256.1
+/etc/ld.so.conf.d/libgcrypt.conf
 
 %changelog
 * Wed Sep 23 2020 smahood Arctic Wolf Networks

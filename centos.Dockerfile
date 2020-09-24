@@ -59,7 +59,7 @@ RUN wget https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-${GPGME_VERSION}.tar.bz2 &
 WORKDIR /tmp/libgcrypt
 RUN wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-${LIBGCRYPT_VERSION}.tar.bz2 && \
   tar -jxvf libgcrypt-${LIBGCRYPT_VERSION}.tar.bz2 --strip-components=1 && \
-  ./configure --prefix=/opt/awn/ --libdir=/opt/awn/lib64 --includedir=/usr/include && make && make install
+  ./configure --prefix=/ --libdir=/lib64 --includedir=/usr/include && make && make install
 WORKDIR /tmp/util-linux
 RUN wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${UTIL_LINUX_VERSION}/util-linux-${UTIL_LINUX_VERSION}.tar.gz && \
   tar -xzvf util-linux-${UTIL_LINUX_VERSION}.tar.gz --strip-components=1 && \
@@ -91,6 +91,7 @@ COPY RPM/openvas-scanner/rpmbuild .
 RUN set -x && \
   rpmbuild -bb SPECS/openvas-scanner.spec
 WORKDIR ${LIBGCRYPT_DEVEL_RPM_BUILD_DIR}
+COPY RPM/libgcrypt-devel/rpmbuild/ld.so.conf.libgcrypt /
 COPY RPM/libgcrypt-devel/rpmbuild .
 RUN set -x && \
   rpmbuild -bb SPECS/libgcrypt-devel.spec
