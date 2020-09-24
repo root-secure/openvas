@@ -35,8 +35,8 @@ cp /bin/libgcrypt-config %{buildroot}/opt/awn/bin/
 cp /bin/mpicalc %{buildroot}/opt/awn/bin/
 cp /usr/include/gcrypt.h %{buildroot}/opt/awn/usr/include/
 cp /lib64/libgcrypt.la %{buildroot}/opt/awn/lib64/
-ln -s /lib64/libgcrypt.so.20.2.6 %{buildroot}/opt/awn/lib64/libgcrypt.so
-ln -s /lib64/libgcrypt.so.20.2.6 %{buildroot}/opt/awn/lib64/libgcrypt.so.20
+ln -s /opt/awn/lib64/libgcrypt.so.20.2.6 %{buildroot}/opt/awn/lib64/libgcrypt.so
+ln -s /opt/awn/lib64/libgcrypt.so.20.2.6 %{buildroot}/opt/awn/lib64/libgcrypt.so.20
 cp /lib64/libgcrypt.so.20.2.6 %{buildroot}/opt/awn/lib64/
 cp /lib64/pkgconfig/libgcrypt.pc %{buildroot}/opt/awn/lib64/pkgconfig/
 cp /share/aclocal/libgcrypt.m4 %{buildroot}/opt/awn/share/aclocal/
