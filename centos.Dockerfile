@@ -91,6 +91,7 @@ COPY RPM/openvas-scanner/rpmbuild .
 RUN set -x && \
   rpmbuild -bb SPECS/openvas-scanner.spec
 WORKDIR ${LIBGCRYPT_DEVEL_RPM_BUILD_DIR}
+COPY RPM/libgcrypt-devel/rpmbuild/ld.so.conf.libgcrypt /
 COPY RPM/libgcrypt-devel/rpmbuild .
 RUN set -x && \
   rpmbuild -bb SPECS/libgcrypt-devel.spec

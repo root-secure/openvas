@@ -23,14 +23,15 @@ Vulnerability Tests (NVTs).
 
 %install
 mkdir -p %{buildroot}/etc/logrotate.d/
-mkdir -p %{buildroot}/etc/systemd/system/multi-user.target.wants/
+mkdir -p %{buildroot}/usr/lib/systemd/system/
 cp /etc/logrotate.d/openvas-scanner %{buildroot}/etc/logrotate.d/
-cp /etc/systemd/system/multi-user.target.wants/openvas-scanner.service %{buildroot}/etc/systemd/system/multi-user.target.wants/
+cp /etc/systemd/system/multi-user.target.wants/openvas-scanner.service %{buildroot}/usr/lib/systemd/system/
 
 %files
 /etc/logrotate.d/openvas-scanner
-/etc/systemd/system/multi-user.target.wants/openvas-scanner.service 
+/usr/lib/systemd/system/openvas-scanner.service
 
 %changelog
+* Wed Sep 23 2020 smahood Arctic Wolf Networks
 * Wed Aug 5 2020 aschryver Arctic Wolf Networks
 -
