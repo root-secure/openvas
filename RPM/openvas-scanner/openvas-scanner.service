@@ -1,8 +1,8 @@
 [Unit]
 Description=OpenVAS Scanner
 Documentation=man:openvassd(8) http://www.openvas.org/
-After=redis-server.service
-Requires=redis-server.service
+After=redis.service
+Requires=redis.service
 Before=openvas-manager.service
 
 [Service]

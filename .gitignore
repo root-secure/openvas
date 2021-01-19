@@ -3,3 +3,8 @@ nasl/nasl_grammar.output
 nasl/nasl_grammar.tab.c
 nasl/nasl_grammar.tab.h
 *_amd64.deb
+*.rpm
+
+*.swp
+
+!**/*rpmbuild/BUILD/
