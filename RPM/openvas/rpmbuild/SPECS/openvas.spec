@@ -1,6 +1,6 @@
 Name:           openvas
 Version:        6.0.2
-Release:        1%{?dist}
+Release:        awn1%{?dist}
 Group:          System Environment/Libraries
 Summary:        The Open Vulnerability Assessment (OpenVAS) suite
 

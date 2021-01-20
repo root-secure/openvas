@@ -1,6 +1,6 @@
 Name:           libgcrypt-devel
 Version:        1.8.6
-Release:        1%{?dist}
+Release:        awn1%{?dist}
 Group:          Development/Libraries
 Summary:        Development files for the libgcrypt package
 

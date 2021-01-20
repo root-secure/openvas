@@ -1,6 +1,6 @@
 Name:           openvas-scanner
 Version:        6.0.2
-Release:        1%{?dist}
+Release:        awn1%{?dist}
 Group:          Unspecified
 Summary:        The Open Vulnerability Assessment (OpenVAS) suite
 
